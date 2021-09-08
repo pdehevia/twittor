@@ -4,8 +4,8 @@ if( 'function' === typeof importScripts) {
  }
 
 
-const STATIC_CACHE = 'static-v2';
-const DYNAMIC_CACHE = 'dynamic-v1';
+const STATIC_CACHE = 'static-v3';
+const DYNAMIC_CACHE = 'dynamic-v2';
 const INMUTABLE_CACHE = 'inmutable-v1';
 
 const APP_SHELL = [
@@ -46,6 +46,9 @@ self.addEventListener('activate', e => {
     const resp = caches.keys().then(keys => {
         keys.forEach(key => {
             if(keys !== STATIC_CACHE && keys.includes('static')) {
+                return caches.delete(key);
+            }
+            if(keys !== DYNAMIC_CACHE && keys.includes('dynamic')) {
                 return caches.delete(key);
             }
         });
